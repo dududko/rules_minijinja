@@ -27,26 +27,7 @@ archive_override(
 
 ### Using WORKSPACE
 
-Add to your `WORKSPACE` file:
-
-```starlark
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-http_archive(
-    name = "rules_minijinja",
-    sha256 = "<sha256>",
-    urls = ["https://github.com/dududko/rules_minijinja/releases/download/v<version>/rules_minijinja-v<version>.tar.gz"],
-)
-
-load("@rules_minijinja//minijinja:repositories.bzl", "minijinja_register_toolchains", "rules_minijinja_dependencies")
-
-rules_minijinja_dependencies()
-
-minijinja_register_toolchains(
-    name = "minijinja",
-    minijinja_version = "2.12.0",
-)
-```
+Workspace mode is not supported.
 
 > See the [release notes](https://github.com/dududko/rules_minijinja/releases) for version-specific installation instructions and sha256 checksums.
 
