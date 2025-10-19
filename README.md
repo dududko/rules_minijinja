@@ -88,7 +88,6 @@ See the [color palette example](e2e/color_palette) for a complete demonstration 
 
 ## Documentation
 
-- [API Reference](docs/) - Detailed documentation for all rules and functions
 - [Examples](minijinja/examples/) - Usage examples
 - [E2E Tests](e2e/) - End-to-end test cases demonstrating various use cases
 
