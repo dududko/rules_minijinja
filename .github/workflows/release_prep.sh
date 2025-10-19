@@ -23,21 +23,15 @@ cat << EOF
 
 \`\`\`starlark
 bazel_dep(name = "rules_minijinja", version = "${TAG:1}")
+
+minijinja = use_extension("@rules_minijinja//minijinja:extensions.bzl", "minijinja")
+minijinja.toolchain(minijinja_version = "2.12.0")
+use_repo(minijinja, "minijinja_toolchains")
 \`\`\`
 
 ## Using WORKSPACE
 
-Paste this snippet into your \`WORKSPACE.bazel\` file:
-
-\`\`\`starlark
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-http_archive(
-    name = "rules_minijinja",
-    sha256 = "${SHA}",
-    strip_prefix = "${PREFIX}",
-    url = "https://github.com/dududko/rules_minijinja/releases/download/${TAG}/${ARCHIVE}",
-)
+Workspace mode is not supported
 EOF
 
-awk 'f;/--SNIP--/{f=1}' e2e/smoke/WORKSPACE.bazel
 echo "\`\`\`"
