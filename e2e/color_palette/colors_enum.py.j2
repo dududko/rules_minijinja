@@ -1,0 +1,37 @@
+"""Generated color definitions.
+
+This file is auto-generated. Do not edit manually.
+"""
+from enum import Enum
+from typing import Tuple
+
+
+class Color(Enum):
+    """Color enumeration with hex and RGB values."""
+
+    {% for color in colors %}
+    {{ color.name }} = "{{ color.hex }}"  # {{ color.description }}
+    {% endfor %}
+
+    def to_rgb(self) -> Tuple[int, int, int]:
+        """Convert color to RGB tuple."""
+        rgb_map = {
+            {% for color in colors %}
+            Color.{{ color.name }}: ({{ color.rgb[0] }}, {{ color.rgb[1] }}, {{ color.rgb[2] }}),
+            {% endfor %}
+        }
+        return rgb_map[self]
+
+    def to_hex(self) -> str:
+        """Get hex representation of color."""
+        return self.value
+
+    @property
+    def description(self) -> str:
+        """Get color description."""
+        desc_map = {
+            {% for color in colors %}
+            Color.{{ color.name }}: "{{ color.description }}",
+            {% endfor %}
+        }
+        return desc_map[self]

@@ -1,0 +1,55 @@
+load("@rules_minijinja//minijinja:defs.bzl", "minijinja_template")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+
+# Generate Color enum from YAML spec
+minijinja_template(
+    name = "generate_colors",
+    out = "colors.py",
+    data = ["colors_spec.yaml"],
+    template = "colors_enum.py.j2",
+)
+
+# Generate Palette class from YAML spec
+minijinja_template(
+    name = "generate_palette",
+    out = "palette.py",
+    data = ["palette_spec.yaml"],
+    template = "palette_class.py.j2",
+)
+
+# Library with generated types
+py_library(
+    name = "generated_code",
+    srcs = [
+        ":generate_colors",
+        ":generate_palette",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# Static application code that uses the generated types
+py_library(
+    name = "color_app",
+    srcs = ["color_app.py"],
+    visibility = ["//visibility:public"],
+    deps = [":generated_code"],
+)
+
+# Binary to run the color application demo
+py_binary(
+    name = "color_app_demo",
+    srcs = ["color_app.py"],
+    main = "color_app.py",
+    visibility = ["//visibility:public"],
+    deps = [":generated_code"],
+)
+
+# Test for the color application
+py_test(
+    name = "color_app_test",
+    srcs = ["color_app_test.py"],
+    deps = [
+        ":color_app",
+        ":generated_code",
+    ],
+)

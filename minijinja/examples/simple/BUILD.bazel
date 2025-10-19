@@ -1,0 +1,20 @@
+load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+load("@rules_minijinja//minijinja:defs.bzl", "minijinja_template")
+
+# Simple template example with substitutions
+minijinja_template(
+    name = "greeting",
+    out = "greeting.txt",
+    substitutions = {
+        "name": "World",
+        "language": "English",
+    },
+    template = "greeting.txt.j2",
+)
+
+# Test that verifies generated output matches expected
+diff_test(
+    name = "greeting_test",
+    file1 = ":greeting",
+    file2 = "greeting_expected.txt",
+)
