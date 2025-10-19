@@ -1,6 +1,12 @@
 {
   "homepage": "https://github.com/dududko/rules_minijinja",
-  "maintainers": [],
+  "maintainers": [
+    {
+      "email": "dududko@gmail.com",
+      "github": "dududko",
+      "name": "Alexei Dudko"
+    }
+  ],
   "repository": ["github:dududko/rules_minijinja"],
   "versions": [],
   "yanked_versions": {}
