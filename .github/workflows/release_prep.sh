@@ -33,5 +33,3 @@ use_repo(minijinja, "minijinja_toolchains")
 
 Workspace mode is not supported
 EOF
-
-echo "\`\`\`"
