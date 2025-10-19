@@ -1,0 +1,2 @@
+# This file marks this as a Bazel workspace.
+# The actual dependencies are managed via MODULE.bazel (bzlmod).

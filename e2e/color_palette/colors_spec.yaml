@@ -1,0 +1,40 @@
+colors:
+  - name: RED
+    hex: "#FF0000"
+    rgb: [255, 0, 0]
+    description: "Pure red color"
+
+  - name: GREEN
+    hex: "#00FF00"
+    rgb: [0, 255, 0]
+    description: "Pure green color"
+
+  - name: BLUE
+    hex: "#0000FF"
+    rgb: [0, 0, 255]
+    description: "Pure blue color"
+
+  - name: YELLOW
+    hex: "#FFFF00"
+    rgb: [255, 255, 0]
+    description: "Pure yellow color"
+
+  - name: CYAN
+    hex: "#00FFFF"
+    rgb: [0, 255, 255]
+    description: "Pure cyan color"
+
+  - name: MAGENTA
+    hex: "#FF00FF"
+    rgb: [255, 0, 255]
+    description: "Pure magenta color"
+
+  - name: WHITE
+    hex: "#FFFFFF"
+    rgb: [255, 255, 255]
+    description: "Pure white color"
+
+  - name: BLACK
+    hex: "#000000"
+    rgb: [0, 0, 0]
+    description: "Pure black color"

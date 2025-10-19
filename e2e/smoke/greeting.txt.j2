@@ -1,0 +1,11 @@
+Hello, {{ name }}!
+
+This greeting is in {{ language }}.
+
+{% if language == "English" %}
+Have a great day!
+{% elif language == "Spanish" %}
+¡Que tengas un buen día!
+{% else %}
+Enjoy your day!
+{% endif %}

@@ -1,0 +1,13 @@
+bazel_dep(name = "rules_minijinja", version = "0.0.0")
+local_path_override(
+    module_name = "rules_minijinja",
+    path = "../..",
+)
+
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+
+minijinja = use_extension("@rules_minijinja//minijinja:extensions.bzl", "minijinja")
+minijinja.toolchain(minijinja_version = "2.12.0")
+use_repo(minijinja, "minijinja_toolchains")
+
+register_toolchains("@minijinja_toolchains//:all")

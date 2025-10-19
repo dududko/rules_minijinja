@@ -1,0 +1,12 @@
+palettes:
+  - name: "PRIMARY"
+    description: "Primary color palette"
+    colors: ["RED", "GREEN", "BLUE"]
+
+  - name: "SECONDARY"
+    description: "Secondary color palette"
+    colors: ["YELLOW", "CYAN", "MAGENTA"]
+
+  - name: "GRAYSCALE"
+    description: "Grayscale palette"
+    colors: ["WHITE", "BLACK"]

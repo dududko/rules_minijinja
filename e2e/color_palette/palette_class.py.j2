@@ -1,0 +1,66 @@
+"""Generated color palette definitions.
+
+This file is auto-generated. Do not edit manually.
+"""
+from enum import Enum
+from typing import List
+from colors import Color
+
+
+class PaletteType(Enum):
+    """Available color palettes."""
+
+    {% for palette in palettes %}
+    {{ palette.name }} = "{{ palette.name }}"  # {{ palette.description }}
+    {% endfor %}
+
+
+class Palette:
+    """Color palette manager."""
+
+    def __init__(self, palette_type: PaletteType):
+        """Initialize palette with given type."""
+        self.palette_type = palette_type
+        self._colors = self._get_colors(palette_type)
+
+    @staticmethod
+    def _get_colors(palette_type: PaletteType) -> List[Color]:
+        """Get colors for the specified palette type."""
+        palette_map = {
+            {% for palette in palettes %}
+            PaletteType.{{ palette.name }}: [
+                {% for color_name in palette.colors %}
+                Color.{{ color_name }},
+                {% endfor %}
+            ],
+            {% endfor %}
+        }
+        return palette_map[palette_type]
+
+    @property
+    def colors(self) -> List[Color]:
+        """Get list of colors in this palette."""
+        return self._colors.copy()
+
+    @property
+    def name(self) -> str:
+        """Get palette name."""
+        return self.palette_type.value
+
+    @property
+    def description(self) -> str:
+        """Get palette description."""
+        desc_map = {
+            {% for palette in palettes %}
+            PaletteType.{{ palette.name }}: "{{ palette.description }}",
+            {% endfor %}
+        }
+        return desc_map[self.palette_type]
+
+    def get_hex_values(self) -> List[str]:
+        """Get all hex values in this palette."""
+        return [color.to_hex() for color in self._colors]
+
+    def get_rgb_values(self) -> List[tuple]:
+        """Get all RGB values in this palette."""
+        return [color.to_rgb() for color in self._colors]
