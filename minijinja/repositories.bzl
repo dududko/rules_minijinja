@@ -53,11 +53,14 @@ def _minijinja_repo_impl(repository_ctx):
         extension,
     )
 
+    # Windows archives have a flat structure, Unix archives have a subdirectory
+    strip_prefix = None if "windows" in platform else "minijinja-cli-{0}".format(platform)
+
     # Download and extract the archive
     repository_ctx.download_and_extract(
         url = url,
         sha256 = TOOL_VERSIONS[version][platform],
-        stripPrefix = "minijinja-cli-{0}".format(platform),
+        stripPrefix = strip_prefix,
     )
 
     # Determine the binary name based on platform
