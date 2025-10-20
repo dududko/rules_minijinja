@@ -11,6 +11,7 @@ Provides access to the minijinja-cli binary and associated files needed for
 template rendering operations.""",
     fields = {
         "target_tool_path": "Path to the minijinja-cli executable for the target platform.",
+        "executable": "The minijinja-cli executable file.",
         "tool_files": """Files required in runfiles to make the minijinja-cli executable available.
 
 May be empty if the target_tool_path points to a locally installed tool binary.""",
@@ -32,10 +33,12 @@ def _minijinja_toolchain_impl(ctx):
 
     tool_files = []
     target_tool_path = ctx.attr.target_tool_path
+    executable = None
 
     if ctx.attr.target_tool:
         tool_files = ctx.attr.target_tool.files.to_list()
         target_tool_path = _to_manifest_path(ctx, tool_files[0])
+        executable = tool_files[0]
 
     # Make the $(tool_BIN) variable available in places like genrules.
     # See https://docs.bazel.build/versions/main/be/make-variables.html#custom_variables
@@ -48,6 +51,7 @@ def _minijinja_toolchain_impl(ctx):
     )
     minijinjainfo = MinijinjaInfo(
         target_tool_path = target_tool_path,
+        executable = executable,
         tool_files = tool_files,
     )
 
