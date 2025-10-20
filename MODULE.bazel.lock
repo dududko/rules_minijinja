@@ -164,7 +164,7 @@
   "moduleExtensions": {
     "//minijinja:extensions.bzl%minijinja": {
       "general": {
-        "bzlTransitiveDigest": "QoM14NuwNjg3Yqby2Cs66Un3Eh+/RYR/R7DwVx7iG/o=",
+        "bzlTransitiveDigest": "cNM1mB1eUSgfvyXwpv4RYFUkqhQJO7KdRs8gqgYP60k=",
         "usagesDigest": "Rn4phXRDjhD5EQmhU3BpOmaSwr0/mz6iUtoiGh9x98M=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},

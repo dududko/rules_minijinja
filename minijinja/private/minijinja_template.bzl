@@ -23,56 +23,41 @@ def _minijinja_template_impl(ctx):
     toolchain = ctx.toolchains["@rules_minijinja//minijinja:toolchain_type"]
     minijinja_info = toolchain.minijinjainfo
 
-    # Create a shell script to run minijinja-cli and redirect output
-    # We need this because minijinja-cli outputs to stdout
-    script_content = "#!/usr/bin/env bash\nset -euo pipefail\n"
-
-    # Build the minijinja-cli command
-    cmd_parts = [minijinja_info.target_tool_path]
+    # Build the command arguments using ctx.actions.args()
+    # This is more efficient and handles quoting/paths automatically
+    args = ctx.actions.args()
 
     # Add whitespace control flags to match jinja2 behavior
-    # These match the Python implementation's trim_blocks and lstrip_blocks settings
-    cmd_parts.append("--trim-blocks")
-    cmd_parts.append("--lstrip-blocks")
+    args.add("--trim-blocks")
+    args.add("--lstrip-blocks")
+
+    # Add output file flag (minijinja-cli supports -o/--output)
+    args.add("--output", output)
 
     # Add template file
-    cmd_parts.append(template.path)
+    args.add(template)
 
     # Add data file if provided (minijinja-cli takes data file as second positional arg)
-    # If multiple data files are provided, we'll need to merge them or use the first one
-    # For now, let's use the first data file if available
     if data_files:
         if len(data_files) > 1:
             fail("minijinja-cli currently supports only one data file. Use substitutions for additional values or merge your data files.")
-        cmd_parts.append(data_files[0].path)
+        args.add(data_files[0])
 
     # Add substitutions as -D key=value pairs
     for key, value in ctx.attr.substitutions.items():
-        cmd_parts.append("-D")
-        cmd_parts.append("{}={}".format(key, value))
-
-    # Redirect output to the output file
-    cmd_parts.append(">")
-    cmd_parts.append(output.path)
-
-    script_content += " ".join(cmd_parts) + "\n"
-
-    # Write the script to a file
-    script_file = ctx.actions.declare_file(ctx.label.name + "_render.sh")
-    ctx.actions.write(
-        output = script_file,
-        content = script_content,
-        is_executable = True,
-    )
+        args.add("-D")
+        args.add("{}={}".format(key, value))
 
     # Create list of all input files
     inputs = [template] + data_files + minijinja_info.tool_files
 
-    # Run the script
+    # Run minijinja-cli directly using ctx.actions.run
+    # This is preferred over run_shell as it's more efficient and portable
     ctx.actions.run(
         inputs = inputs,
         outputs = [output],
-        executable = script_file,
+        executable = minijinja_info.executable,
+        arguments = [args],
         mnemonic = "minijinjaTemplate",
         progress_message = "Rendering minijinja template %s" % template.short_path,
     )
