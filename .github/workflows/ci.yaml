@@ -17,6 +17,7 @@ jobs:
   test:
     uses: dududko/.github.bazel-contrib/.github/workflows/bazel.yaml@19e6c5dc26fa9dada4c13f9deab2981c561679c6
     with:
+      exclude_windows: true
       folders: |
         [
           ".",
