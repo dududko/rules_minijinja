@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref_name != 'main' }}
 jobs:
   test:
-    uses: dududko/.github.bazel-contrib/.github/workflows/bazel.yaml@19e6c5dc26fa9dada4c13f9deab2981c561679c6
+    uses: ./.github/workflows/bazel.yaml
     with:
       exclude_windows: false
       folders: |
@@ -24,22 +24,6 @@ jobs:
           "e2e/smoke",
           "e2e/color_palette"
         ]
-
-  windows-test-logs:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Windows test
-        run: bazel test //minijinja/examples/simple:greeting_test
-        continue-on-error: true
-      - name: Upload test log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: windows-greeting-test-log
-          path: D:/_bazel/execroot/_main/bazel-out/x64_windows-fastbuild/testlogs/minijinja/examples/simple/greeting_test/test.log
-          if-no-files-found: warn
-
   # pre-commit:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -48,8 +32,8 @@ jobs:
   # For branch protection settings, this job provides a "stable" name that can be used to gate PR merges
   # on "all matrix jobs were successful".
   conclusion:
-    # needs: [test, pre-commit, windows-test-logs]
-    needs: [test, windows-test-logs]
+    # needs: [test, pre-commit]
+    needs: [test]
     runs-on: ubuntu-latest
     if: always()
     steps:
