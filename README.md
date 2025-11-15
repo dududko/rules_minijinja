@@ -67,6 +67,14 @@ minijinja_template(
 
 See the [color palette example](e2e/color_palette) for a complete demonstration of using minijinja templates to generate Python code from YAML specifications.
 
+### Running minijinja-cli Directly
+
+You can run the minijinja-cli binary directly using:
+
+```bash
+bazel run @rules_minijinja//minijinja -- <args>
+```
+
 ## Documentation
 
 - [Examples](minijinja/examples/) - Usage examples
