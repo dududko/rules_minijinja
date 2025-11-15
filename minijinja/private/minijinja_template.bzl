@@ -27,10 +27,6 @@ def _minijinja_template_impl(ctx):
     # This is more efficient and handles quoting/paths automatically
     args = ctx.actions.args()
 
-    # Add whitespace control flags to match jinja2 behavior
-    args.add("--trim-blocks")
-    args.add("--lstrip-blocks")
-
     # Add output file flag (minijinja-cli supports -o/--output)
     args.add("--output", output)
 
