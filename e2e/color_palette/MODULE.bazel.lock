@@ -206,7 +206,7 @@
     },
     "@@rules_minijinja+//minijinja:extensions.bzl%minijinja": {
       "general": {
-        "bzlTransitiveDigest": "QoM14NuwNjg3Yqby2Cs66Un3Eh+/RYR/R7DwVx7iG/o=",
+        "bzlTransitiveDigest": "cNM1mB1eUSgfvyXwpv4RYFUkqhQJO7KdRs8gqgYP60k=",
         "usagesDigest": "YU81tDLl/a39xING1R1gqOrqCP/7aHKBnTuMKG0XIIg=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},

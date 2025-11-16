@@ -2,6 +2,13 @@
 docs/*.md linguist-generated=true
 
 #################################
+# Test files should use LF for consistency across platforms
+minijinja/examples/simple/*.txt text eol=lf
+minijinja/examples/simple/*.j2 text eol=lf
+e2e/smoke/*.txt text eol=lf
+e2e/smoke/*.j2 text eol=lf
+
+#################################
 # Configuration for 'git archive'
 # See https://git-scm.com/docs/git-archive#ATTRIBUTES
 
